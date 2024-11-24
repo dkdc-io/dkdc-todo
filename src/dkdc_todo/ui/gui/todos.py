@@ -22,10 +22,12 @@ def todo_card(header, body, priority):
         ui.card_header(header),
         ui.layout_columns(
             ui.markdown(body),
-            ui.input_slider("priority", "priority", value=priority, min=0, max=100),
+            ui.input_numeric("priority", "priority", value=priority, min=0, max=100),
         ),
         ui.layout_columns(
             ui.input_action_button("done", "done", class_="btn-primary"),
+            # TODO: implement edit flow (modal?) (perhaps clear all flow w/ confirmation while we're here)
+            ui.input_action_button("edit", "edit", class_="btn-info"),
             ui.input_action_button("delete", "delete", class_="btn-danger"),
         ),
     )
@@ -97,7 +99,7 @@ def todo_page():
             ui.card(
                 ui.card_header("add todo"),
                 ui.layout_columns(
-                    ui.input_text("todo", "todo"),
+                    ui.input_text_area("todo", "todo"),
                     ui.input_slider("priority", "priority", value=100, min=0, max=100),
                 ),
                 ui.layout_columns(
@@ -150,6 +152,12 @@ def todo_server(input, output, session):
             names="status",
             values="count",
             color="status",
+            # TODO: match colors to buttons
+            color_discrete_map={
+                "todo": "turquoise",
+                "done": "purple",
+                "deleted": "red",
+            },
         )
         return c
 

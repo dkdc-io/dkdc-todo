@@ -29,10 +29,7 @@ def gui_server(input, output, session):
     # global effects
     @render.ui
     def main():
-        elements = [
-            ui.nav_panel("home", ui.markdown("home")),
-            ui.nav_panel("todo", todo_page("todo")),
-        ]
+        elements = [ui.nav_panel("todo", todo_page("todo"))]
         elements += [
             ui.nav_spacer(),
             ui.nav_control(

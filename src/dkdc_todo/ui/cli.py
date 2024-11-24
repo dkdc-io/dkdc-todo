@@ -18,7 +18,7 @@ app = typer.Typer(help="dkdc-todo", **default_kwargs)
 @app.command()
 @app.command("g", hidden=True)
 def gui(
-    port: int = typer.Option(8010, help="port", show_default=True),
+    port: int = typer.Option(8008, help="port", show_default=True),
     prod: bool = typer.Option(False, help="prod?", show_default=True),
 ):
     """
