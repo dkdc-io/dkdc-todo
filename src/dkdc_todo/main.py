@@ -102,6 +102,9 @@ class Todo(State):
         description: str = None,
         labels: list[str] = None,
     ):
+        if self.contains_todo(id=id):
+            raise ValueError(f"todo {id} already exists")
+
         data = {
             "idx": [now()],
             "id": [id],
