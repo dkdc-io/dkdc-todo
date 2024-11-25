@@ -1,6 +1,6 @@
 import os
 
-from dkdc_util import now, uuid, get_dkdc_dir
+from dkdc_util import now, get_dkdc_dir
 from dkdc_state import State, ibis, dt
 
 
@@ -91,41 +91,6 @@ class Todo(State):
         return t.filter(t["id"] == id).to_pyarrow().to_pylist()[0]
 
     # append record
-    def append_message(
-        self,
-        to: str,
-        from_: str,
-        convo_id: str,
-        thread_id: str,
-        subject: str,
-        body: str,
-        attachments: list[str] = None,
-        version: int = None,
-        status: str = None,
-        description: str = None,
-        labels: list[str] = None,
-    ):
-        assert (to is not None) and (from_ is not None), "to and from_ are required"
-
-        data = {
-            "idx": [now()],
-            "id": [uuid()],
-            "to": [to],
-            "from": [from_],
-            "convo_id": [convo_id],
-            "thread_id": [thread_id],
-            "subject": [subject],
-            "body": [body],
-            "attachments": [",".join(attachments) if attachments else None],
-            "version": [version],
-            "status": [status],
-            "description": [description],
-            "labels": [",".join(labels) if labels else None],
-        }
-        self.wcon.insert(self.todos_table_name, data)
-
-        return self.get_todo(id=data["id"][0])
-
     def append_todo(
         self,
         id: str,
